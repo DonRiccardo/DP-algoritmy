@@ -1,0 +1,11 @@
+A,B,C,D
+X,dog,H,
+X,cow,F,#
+X,cat,H,
+Y,mouse,B,$
+Y,dog,H,+
+Y,pig,F,#
+Y,cat,H,
+Z,horse,F,*
+Z,cow,F,
+Z,chicken,F,#

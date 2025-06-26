@@ -1,0 +1,6 @@
+cz\cuni\mff\thesis\tanespark\model\_CSVTestCase.class
+cz\cuni\mff\thesis\tanespark\CombinationHelperSpark.class
+cz\cuni\mff\thesis\tanespark\TaneSparkAlgorithm.class
+cz\cuni\mff\thesis\tanespark\service\_StrippedPartitionGenerator.class
+cz\cuni\mff\thesis\tanespark\TaneSpark.class
+cz\cuni\mff\thesis\tanespark\model\_StrippedPartitionSpark.class
