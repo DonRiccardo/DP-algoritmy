@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -54,7 +56,9 @@ public class _CSVTestCase implements Serializable{
     public _CSVTestCase(String fileName, boolean hasHeader, SparkSession spark) throws IOException {
 
         this.fileName = fileName;
-        this.outputFile = fileName+"FD-output";
+        Path p = Paths.get(fileName);
+        
+        this.outputFile = "../output-FDs/"+p.getFileName().toString()+"-FDs-"+spark.sparkContext().appName();
         this.hasHeader = hasHeader;
 
         setDelimiter();

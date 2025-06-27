@@ -24,21 +24,21 @@ public class MainApp {
         private static SparkSession spark = null;
 
 	public static void main(String... args) {
+            boolean hasHeader;
 
-                FILENAME = "test-example.csv";  // My example in thesis, header TRUE
- //               FILENAME = "test-examplex2.csv";  // My example in thesis, header TRUE
-//		FILENAME = "abalone.csv";   // header FALSE
-//		FILENAME = "heart-2020-50t.csv";  
-//		FILENAME = "imdb-movies.csv";
+                FILENAME = "../datasets/test-example.csv";  hasHeader = true;
+//		FILENAME = "../datasets/abalone.csv";   hasHeader = false;
+//		FILENAME = "../datasets/heart-2020-50t.csv";  hasHeader = true;
+//		FILENAME = "../datasets/imdb-movies.csv"; hasHeader = true;
 //		FILENAME = "adult.csv";		// DO NOT RUN - TOO LONG FILE
 //		FILENAME = "balance-scale.csv";
-//		FILENAME = "breast.csv";        // header TRUE
-//		FILENAME = "breastx2.csv";      // header TRUE       
-//		FILENAME = "breastx16.csv";     // header TRUE             
-//		FILENAME = "breastx64.csv";     // header TRUE
-//                FILENAME = "breast-newx79.csv"; // header TRUE
+//		FILENAME = "../datasets/breast.csv"; hasHeader = true;  
+//		FILENAME = "breastx2.csv"; hasHeader = true;       
+//		FILENAME = "../datasets/breastx16.csv"; hasHeader = true;          
+//		FILENAME = "../datasets/breastx64.csv"; hasHeader = true;
+//                FILENAME = "../datasets/breast-newx79.csv"; hasHeader = true;
 //		FILENAME = "breast_proj.csv";
-//		FILENAME = "car10t.csv";
+//		FILENAME = "../datasets/car10t.csv"; hasHeader = true;
 //		FILENAME = "bridges.csv";
 //		FILENAME = "armstrong.csv";
 //		FILENAME = "echocardiogram.csv";
@@ -47,16 +47,16 @@ public class MainApp {
 //		FILENAME = "horse.csv";
 //		FILENAME = "chess.csv";	// DO NOT RUN - TOO LONG FILE
 //		FILENAME = "iris.csv";
-//		FILENAME = "letter.csv";	// DO NOT RUN - TOO LONG FILE
+//		FILENAME = "../datasets/letter.csv"; hasHeader = false;	// DO NOT RUN - TOO LONG FILE
 //		FILENAME = "ncvoter_1001r_19c.csv";
-//		FILENAME = "nursery.csv";	// DO NOT RUN - TOO LONG FILE
+//		FILENAME = "../datasets/nursery.csv"; hasHeader = false;	// DO NOT RUN - TOO LONG FILE
 //		FILENAME = "plista_1k.csv";	// DO NOT RUN - TOO MANY FDs
 //		FILENAME = "title10.csv";	// TODO: Tohle je dobrý running example, protože nad více daty platí méně funkčních závislostí - jasně řekneme, co je coincidental a budeme upravovat
 //		FILENAME = "title5k.csv";	// TODO: Tohle je dobrý running example, protože nad více daty platí méně funkčních závislostí - jasně řekneme, co je coincidental a budeme upravovat
 //		FILENAME = "title10k.csv";	// TODO: Tohle je dobrý running example, protože nad více daty platí méně funkčních závislostí - jasně řekneme, co je coincidental a budeme upravovat
 //		FILENAME = "titanic.csv";
 //		FILENAME = "armstrong.csv";
-		boolean hasHeader = true;
+
 
 		try {
                     

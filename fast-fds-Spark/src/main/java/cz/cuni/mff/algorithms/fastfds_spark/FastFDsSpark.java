@@ -27,13 +27,13 @@ public class FastFDsSpark {
     
      public static void main(String[] args) {
      
-//        FILENAME = "imdb-movies.csv"; hasHeader = true;
-        FILENAME = "test-example.csv"; hasHeader = true;
-//        FILENAME = "breast.csv"; hasHeader = true;
-//        FILENAME = "breastx16.csv"; hasHeader = true;
-//        FILENAME = "breastx64.csv"; hasHeader = true;
-//        FILENAME = "abalone.csv"; hasHeader = true;
-//          FILENAME = "breast-newx79.csv"; hasHeader = true;
+//        FILENAME = "../datasets/imdb-movies.csv"; hasHeader = true;
+        FILENAME = "../datasets/test-example.csv"; hasHeader = true;
+//        FILENAME = "../datasets/breast.csv"; hasHeader = true;
+//        FILENAME = "../datasets/breastx16.csv"; hasHeader = true;
+//        FILENAME = "../datasets/breastx64.csv"; hasHeader = true;
+//        FILENAME = "../datasets/abalone.csv"; hasHeader = true;
+//        FILENAME = "../datasets/breast-newx79.csv"; hasHeader = true;
         
         try {
                     

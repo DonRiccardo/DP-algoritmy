@@ -99,6 +99,7 @@ public class DepMinerSpark {
         List<_FunctionalDependencyGroup> result = xxx.execute();
         System.out.println("----- FUNCTIONAL DEPENDENCIES -----");
         System.out.println("size: " + result.size());
+        input.printResultFile(result);
         Map<Integer, List<_FunctionalDependencyGroup>> fds = new TreeMap<>();
         for (int index = 0; index < length; ++index) {
             List<_FunctionalDependencyGroup> list = new ArrayList<>();

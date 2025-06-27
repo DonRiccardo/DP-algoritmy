@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.BitSet;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -54,7 +56,10 @@ public class _CSVTestCase implements Serializable{
     public _CSVTestCase(String fileName, boolean hasHeader, SparkSession spark) throws IOException {
 
         this.fileName = fileName;
-        this.outputFile = fileName+"FD-output";
+        
+        Path p = Paths.get(fileName);
+        
+        this.outputFile = "../output-FDs/"+p.getFileName().toString()+"-FDs-"+spark.sparkContext().appName();
         this.hasHeader = hasHeader;
 
         setDelimiter();
@@ -216,6 +221,37 @@ public class _CSVTestCase implements Serializable{
             for (Tuple2<BitSet, Integer> fd : resultFDs){
                 myWriter.write(fd._1+" -> "+fd._2 + System.getProperty("line.separator"));
                 System.out.println(fd._1+" -> "+fd._2);
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the output file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while printing results.");
+            
+        }
+    }
+    
+    public void addResultToFile(_FunctionalDependencyGroup fdg){
+        try {
+            FileWriter myWriter = new FileWriter(outputFile, true);
+            
+            myWriter.write(fdg.toString() + System.getProperty("line.separator"));
+            System.out.println(fdg.toString());
+            
+            myWriter.close();
+            System.out.println("Successfully wrote to the output file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while printing results.");
+            
+        }
+    }
+    
+    public void printResultFile(List<_FunctionalDependencyGroup> fdgList){
+        try {
+            System.out.println("WRITING: resultFDs size: "+fdgList.size());
+            FileWriter myWriter = new FileWriter(outputFile, true);
+            for (_FunctionalDependencyGroup fd : fdgList){
+                myWriter.write(fd.toString() + System.getProperty("line.separator"));
+                
             }
             myWriter.close();
             System.out.println("Successfully wrote to the output file.");

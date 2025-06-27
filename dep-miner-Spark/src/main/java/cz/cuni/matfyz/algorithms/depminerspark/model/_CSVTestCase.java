@@ -13,6 +13,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.BitSet;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import org.apache.spark.api.java.JavaRDD;
@@ -28,6 +32,7 @@ import scala.Tuple2;
 public class _CSVTestCase implements Serializable{
 
     private static String filePath = "";
+    private static String outputFile = "";
     private static String defaultFileName = "dbtesmaData.c100000.r10";
     private static boolean defaultHasHeader = false;
     //private static BufferedWriter bw;
@@ -52,6 +57,10 @@ public class _CSVTestCase implements Serializable{
     public _CSVTestCase(String fileName, boolean hasHeader, SparkSession spark) throws IOException {
 
         this.fileName = fileName;
+        
+        Path p = Paths.get(fileName);        
+        this.outputFile = "../output-FDs/"+p.getFileName().toString()+"-FDs-"+spark.sparkContext().appName();
+        
         this.hasHeader = hasHeader;
 
         setDelimiter();
@@ -62,7 +71,7 @@ public class _CSVTestCase implements Serializable{
         this.getNames();
 
         this.rddData = df.rdd().zipWithIndex().toJavaRDD();
-        
+        _CSVTestCase.createOutputFile();
     }
     
     private void setDelimiter() throws IOException{
@@ -169,7 +178,7 @@ public class _CSVTestCase implements Serializable{
 
         return this;
     }
-
+    /*
     public void receiveResult(_FunctionalDependency fd) {
 
         // System.out.println(fd.getDeterminant() + "-->" + fd.getDependant());
@@ -178,5 +187,70 @@ public class _CSVTestCase implements Serializable{
     public Boolean acceptedResult(_FunctionalDependency result) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    */
+    
+    private static void createOutputFile(){
+        try {
+            File myObj = new File(outputFile);
+            if (myObj.createNewFile()) {
+              System.out.println("Output file created: " + myObj.getName());
+            } else {
+                System.out.println("Output file already exists. Deleting file data.");              
+                FileWriter myWriter = new FileWriter(outputFile, false);
+                myWriter.write("");
+                myWriter.close();   
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating outputFile.");
+            
+        }
+        
+    }
+    
+    public void printResultFile(HashSet<Tuple2<BitSet, Integer>> resultFDs){
+        try {
+            System.out.println("WRITING: resultFDs size: "+resultFDs.size());
+            FileWriter myWriter = new FileWriter(outputFile, true);
+            for (Tuple2<BitSet, Integer> fd : resultFDs){
+                myWriter.write(fd._1+" -> "+fd._2 + System.getProperty("line.separator"));
+                
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the output file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while printing results.");
+            
+        }
+    }
+    
+    public void addResultToFile(_FunctionalDependencyGroup fdg){
+        try {
+            FileWriter myWriter = new FileWriter(outputFile, true);
+            
+            myWriter.write(fdg.toString() + System.getProperty("line.separator"));
+            System.out.println(fdg.toString());
+            
+            myWriter.close();
+            System.out.println("Successfully wrote to the output file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while printing results.");
+            
+        }
+    }
+    
+    public void printResultFile(List<_FunctionalDependencyGroup> fdgList){
+        try {
+            System.out.println("WRITING: resultFDs size: "+fdgList.size());
+            FileWriter myWriter = new FileWriter(outputFile, true);
+            for (_FunctionalDependencyGroup fd : fdgList){
+                myWriter.write(fd.toString() + System.getProperty("line.separator"));
+                
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the output file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while printing results.");
+            
+        }
+    }
 }
