@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package cz.cuni.mff.algorithms.fastfds_spark.model;
+package cz.cuni.mff.algorithms.fdep_spark.model;
 
 import com.google.common.collect.ImmutableList;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,12 +14,18 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.spark.api.java.JavaRDD;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.spark.api.java.function.MapFunction;
+//import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import scala.Tuple2;
@@ -29,14 +36,18 @@ import scala.Tuple2;
  */
 public class _CSVTestCase implements Serializable{
     
-    private static String filePath = "";
-    private static String outputFile = "";
+    private String filePath = "";
+    private String outputFile = "";
+    private static String pathToOutputFile = "../output-FDs/";
+    private static String pathToFiles = "";
     private static String defaultFileName = "dbtesmaData.c100000.r10";
     private static boolean defaultHasHeader = false;
+    //private FileReader fileReader;
+    private BufferedReader buffReader;
     //private static BufferedWriter bw;
     //private BufferedReader br;
     private Dataset<Row> df;
-    private JavaRDD rddData;
+    //private JavaRDD rddData;
     private boolean hasHeader;
     private String fileName;
     //private String nextLine;
@@ -53,34 +64,35 @@ public class _CSVTestCase implements Serializable{
     }
     */
 
-    public _CSVTestCase(String fileName, boolean hasHeader, SparkSession spark) throws IOException {
+    public _CSVTestCase(String filePath, boolean hasHeader, SparkSession spark) throws IOException {
 
-        this.fileName = fileName;
+        this.filePath = filePath;
+        Path p = Paths.get(this.filePath);
+        this.fileName = p.getFileName().toString();
         
-        Path p = Paths.get(fileName);
-        
-        this.outputFile = "../output-FDs/"+p.getFileName().toString()+"-FDs-"+spark.sparkContext().appName();
+        this.outputFile = pathToOutputFile+this.fileName+"-FDs-"+spark.sparkContext().appName();
         this.hasHeader = hasHeader;
-
-        setDelimiter();
         
-        df = spark.read().option("header", hasHeader).option("delimiter", this.delimiter).csv(fileName);        
-
+        setDelimiter();  
+        
+        //this.fileReader = new FileReader(new File(this.filePath));       
+        //this.buffReader = new BufferedReader(new FileReader(new File(this.filePath)));
+        this.df = spark.read().option("header", this.hasHeader).option("delimiter", this.delimiter).csv(this.filePath);  
+        
         this.calcNumbers();
         this.getNames();
-
-        this.rddData = df.rdd().zipWithIndex().toJavaRDD();
         
-        this.createOutputFile();
+        this.createOutputFile();  
+               
         
     }
     
     private void setDelimiter() throws IOException{
         
-        BufferedReader br = new BufferedReader(new FileReader(new File(_CSVTestCase.filePath + fileName)));
+        BufferedReader br = new BufferedReader(new FileReader(new File(this.filePath)));
         String nextLine = br.readLine();
 
-        if (nextLine.split(",").length > nextLine.split(";").length) {
+        if (nextLine.split(",", -1).length > nextLine.split(";", -1).length) {
             this.delimiter = ",";
         } else {
             this.delimiter = ";";
@@ -93,7 +105,7 @@ public class _CSVTestCase implements Serializable{
 
     public static List<String> getAllFileNames() {
 
-        File[] fa = new File(_CSVTestCase.filePath).listFiles();
+        File[] fa = new File(_CSVTestCase.pathToFiles).listFiles();
 
         List<String> result = new LinkedList<>();
         for (File f : fa) {
@@ -140,7 +152,7 @@ public class _CSVTestCase implements Serializable{
             }
         } 
         else {
-
+            
             for (int i = 0; i < this.numberOfColumns; i++) {
 
                 builder.add(this.fileName + ":" + i);
@@ -150,16 +162,27 @@ public class _CSVTestCase implements Serializable{
 
     }
 
-    private void calcNumbers() {
-
+    private void calcNumbers() throws IOException{
+        
         this.numberOfColumns = this.df.columns().length;
         this.numberOfRows = df.count();
     }
     
-    public JavaRDD<Tuple2<Row, Long>> getData(){
-        
-        return this.rddData;
+    public List<String[]> getData(){
+        return this.df
+            .map((MapFunction<Row, String[]>) row -> {
+            String[] values = new String[this.numberOfColumns];
+            for (int i = 0; i < this.numberOfColumns; i++) {
+                Object value = row.get(i);
+                values[i] = value == null ? null : value.toString();
+            }
+            //System.out.println("DATA: "+Arrays.toString(values));
+            return values;
+        }, Encoders.javaSerialization(String[].class))
+            .collectAsList();
+       
     }
+    
 
     public ImmutableList<String> columnNames() {
 
@@ -170,7 +193,7 @@ public class _CSVTestCase implements Serializable{
 
         return this.numberOfColumns;
     }
-    
+   
     public long numberOfRows(){
         
         return this.numberOfRows;
@@ -196,7 +219,7 @@ public class _CSVTestCase implements Serializable{
     }
 */
     
-    private static void createOutputFile(){
+    private void createOutputFile(){
         try {
             File myObj = new File(outputFile);
             if (myObj.createNewFile()) {
@@ -216,7 +239,6 @@ public class _CSVTestCase implements Serializable{
     
     public void printResultFile(HashSet<Tuple2<BitSet, Integer>> resultFDs){
         try {
-            System.out.println("WRITING: resultFDs size: "+resultFDs.size());
             FileWriter myWriter = new FileWriter(outputFile);
             for (Tuple2<BitSet, Integer> fd : resultFDs){
                 myWriter.write(fd._1+" -> "+fd._2 + System.getProperty("line.separator"));
@@ -230,29 +252,10 @@ public class _CSVTestCase implements Serializable{
         }
     }
     
-    public void addResultToFile(_FunctionalDependencyGroup fdg){
+    public void addToResultFile(_FunctionalDependency fd){
         try {
             FileWriter myWriter = new FileWriter(outputFile, true);
-            
-            myWriter.write(fdg.toString() + System.getProperty("line.separator"));
-            System.out.println(fdg.toString());
-            
-            myWriter.close();
-            System.out.println("Successfully wrote to the output file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while printing results.");
-            
-        }
-    }
-    
-    public void printResultFile(List<_FunctionalDependencyGroup> fdgList){
-        try {
-            System.out.println("WRITING: resultFDs size: "+fdgList.size());
-            FileWriter myWriter = new FileWriter(outputFile, true);
-            for (_FunctionalDependencyGroup fd : fdgList){
-                myWriter.write(fd.toString() + System.getProperty("line.separator"));
-                
-            }
+            myWriter.write(fd.toString()+ System.getProperty("line.separator"));
             myWriter.close();
             System.out.println("Successfully wrote to the output file.");
         } catch (IOException e) {
