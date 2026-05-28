@@ -49,14 +49,17 @@ public class _FunctionalDependency {
         }
 
         public void setTableIdentifier(String tableIdentifier) {
+
             this.tableIdentifier = tableIdentifier;
         }
 
         public String getColumnIdentifier() {
+
             return columnIdentifier;
         }
 
         public void setColumnIdentifier(String columnIdentifier) {
+
             this.columnIdentifier = columnIdentifier;
         }
 
@@ -181,6 +184,7 @@ public class _FunctionalDependency {
          * Creates an empty column combination. Needed for serialization.
          */
         public _ColumnCombination() {
+
             columnIdentifiers = new TreeSet<>();
         }
 
@@ -190,6 +194,7 @@ public class _FunctionalDependency {
          * @param columnIdentifier the identifier in the ColumnCombination
          */
         public _ColumnCombination(_ColumnIdentifier... columnIdentifier) {
+
             columnIdentifiers = new TreeSet<>(Arrays.asList(columnIdentifier));
         }
 
@@ -199,15 +204,18 @@ public class _FunctionalDependency {
          * @return columnIdentifiers
          */
         public Set<_ColumnIdentifier> getColumnIdentifiers() {
+
             return columnIdentifiers;
         }
 
         public void setColumnIdentifiers(Set<_ColumnIdentifier> identifiers) {
+
             this.columnIdentifiers = identifiers;
         }
 
         @Override
         public String toString() {
+
             return columnIdentifiers.toString();
         }
 
@@ -347,10 +355,12 @@ public class _FunctionalDependency {
      * @return determinant
      */
     public _ColumnCombination getDeterminant() {
+
         return determinant;
     }
 
     public void setDependant(_ColumnIdentifier dependant) {
+
         this.dependant = dependant;
     }
 
@@ -358,10 +368,12 @@ public class _FunctionalDependency {
      * @return dependant
      */
     public _ColumnIdentifier getDependant() {
+
         return dependant;
     }
 
     public void setDeterminant(_ColumnCombination determinant) {
+
         this.determinant = determinant;
     }
 
@@ -372,6 +384,7 @@ public class _FunctionalDependency {
 //	}
     @Override
     public String toString() {
+
         return determinant.toString() + FD_SEPARATOR + dependant.toString();
     }
 
@@ -383,6 +396,7 @@ public class _FunctionalDependency {
      * @return the string
      */
     public String toString(Map<String, String> tableMapping, Map<String, String> columnMapping) {
+
         return determinant.toString(tableMapping, columnMapping) + FD_SEPARATOR + dependant.toString(tableMapping, columnMapping);
     }
 

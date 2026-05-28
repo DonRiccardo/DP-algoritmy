@@ -26,8 +26,8 @@ public class FdepSpark {
     
     public static void main(String[] args) {
         
-        FILENAME = "../datasets/imdb-movies.csv"; hasHeader = true;
-//        FILENAME = "../datasets/test-example.csv"; hasHeader = true;
+//        FILENAME = "../datasets/imdb-movies.csv"; hasHeader = true;
+        FILENAME = "../datasets/test-example.csv"; hasHeader = true;
 //        FILENAME = "../datasets/breast.csv"; hasHeader = true;
 //        FILENAME = "../datasets/breastx16.csv"; hasHeader = true;
 //        FILENAME = "../datasets/breastx64.csv"; hasHeader = true;
@@ -35,7 +35,9 @@ public class FdepSpark {
 //        FILENAME = "../datasets/abalone.csv"; hasHeader = true;
         
         try {
-                    
+            System.out.println("hadoop.home.dir = " + System.getProperty("hadoop.home.dir"));
+            System.out.println("HADOOP_HOME (env) = " + System.getenv("HADOOP_HOME"));
+
             // Application name to show on the cluster UI
             conf.setAppName("FDep-Spark");
             // cluster URL (spark://ip_address:7077) or string "local" to run in local mode

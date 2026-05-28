@@ -267,8 +267,8 @@ public class FdepSparkAlgorithm implements Serializable{
     /**
      * Fetch the data from the database and keep it as List of Lists.
      *
-     * @throws AlgorithmExecutionException
-     * @throws AlgorithmConfigurationException
+     * //@throws AlgorithmExecutionException
+     * //@throws AlgorithmConfigurationException
      */
     private void loadData() {
         tuples = new ObjectArrayList<List<String>>();
@@ -377,8 +377,8 @@ public class FdepSparkAlgorithm implements Serializable{
      * Add all functional Dependencies to the FunctionalDependencyResultReceiver.
      * Do nothing if the object does not have a result receiver.
      *
-     * @throws CouldNotReceiveResultException
-     * @throws ColumnNameMismatchException 
+     * //@throws CouldNotReceiveResultException
+     * //@throws ColumnNameMismatchException
      */
     private void addAllDependenciesToResultReceiver() {
         /*

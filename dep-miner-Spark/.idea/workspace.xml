@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7158c17-4d8a-4f08-bf44-be26170a765a" name="Changes" comment="" />
+    <list default="true" id="a7158c17-4d8a-4f08-bf44-be26170a765a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fdep-Spark/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fdep-Spark/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fdep-Spark/src/main/java/cz/cuni/mff/algorithms/fdep_spark/FdepSpark.java" beforeDir="false" afterPath="$PROJECT_DIR$/../fdep-Spark/src/main/java/cz/cuni/mff/algorithms/fdep_spark/FdepSpark.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fdep-Spark/src/main/java/cz/cuni/mff/algorithms/fdep_spark/FdepSparkAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../fdep-Spark/src/main/java/cz/cuni/mff/algorithms/fdep_spark/FdepSparkAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fdep-Spark/src/main/java/cz/cuni/mff/algorithms/fdep_spark/model/_FunctionalDependency.java" beforeDir="false" afterPath="$PROJECT_DIR$/../fdep-Spark/src/main/java/cz/cuni/mff/algorithms/fdep_spark/model/_FunctionalDependency.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,13 +19,16 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\PHP\php.exe" />
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2v4e3qSPqxyawqtpNL6yoGyfmvN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,18 +36,27 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Richard/Desktop/Deep-Miner-Spark",
+    "last_opened_file_path": "C:/Users/Richard/Desktop/Mgr. Informatika/DP/DP-algoritmy/dep-miner-Spark",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.28293.22" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.28293.22" />
       </set>
     </attachedChunks>
   </component>
@@ -51,6 +69,8 @@
       <option name="presentableId" value="Default" />
       <updated>1743408576750</updated>
       <workItem from="1743408578306" duration="144000" />
+      <workItem from="1760635750541" duration="2675000" />
+      <workItem from="1760687801685" duration="728000" />
     </task>
     <servers />
   </component>
